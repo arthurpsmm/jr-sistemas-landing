@@ -202,6 +202,25 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:4rem 2re
   .hero{padding:8rem 1.25rem 4rem}
   .section{padding:4rem 1.25rem}
 }
+
+@media print{
+  nav,.mobile-nav,.hamburger{display:none !important}
+  .reveal,.reveal-scale{opacity:1 !important;transform:none !important}
+  .hero{padding-top:2rem}
+  a[href^="http"]::after{content:none !important}
+  .proof-inner,.valores-grid,.historia-grid,.stat-cards,.clientes-grid,.beneficios-grid,.produtos-grid,.integ-grid,.contato-grid,.footer-grid{
+    display:block !important;
+  }
+  .proof-inner>*,.valores-grid>*,.historia-grid>*,.stat-cards>*,.clientes-grid>*,.beneficios-grid>*,.produtos-grid>*,.integ-grid>*,.contato-grid>*,.footer-grid>*{
+    margin-bottom:1rem !important;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .valor-card,.stat-card,.cliente-badge,.beneficio-card,.produto-card,.integ-badge,.contato-card{
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  h1,h2,h3,.eyebrow{break-after:avoid;page-break-after:avoid}
+  .proof-strip,.cta-final,section{break-inside:auto;page-break-inside:auto}
+}
 </style>
 </head>
 <body>
@@ -649,8 +668,13 @@ function applyLang(lang){
   try{ localStorage.setItem('jrLandingLang', lang); }catch(e){}
 }
 function setLang(lang){ applyLang(lang); }
+var urlLangMatch = window.location.search.match(/[?&]lang=(pt|en|es)/);
 var savedLang = 'pt';
-try{ savedLang = localStorage.getItem('jrLandingLang') || 'pt'; }catch(e){}
+if(urlLangMatch){
+  savedLang = urlLangMatch[1];
+} else {
+  try{ savedLang = localStorage.getItem('jrLandingLang') || 'pt'; }catch(e){}
+}
 applyLang(savedLang);
 </script>
 </body>
